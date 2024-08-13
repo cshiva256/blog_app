@@ -1,0 +1,11 @@
+<div class="blog">
+    <h2 class="title"> <%= @blog.title %> </h2>
+    <p> <%= @blog.content %> </p>
+    <h4 class="author">By, <%= @blog.user[:display_name] %></h4>
+</div>
+
+<div>
+    <% if current_user[:user_name]==@blog.user[:user_name] %>
+        <%= link_to "Edit", edit_blog_path %>
+    <% end %>
+</div>

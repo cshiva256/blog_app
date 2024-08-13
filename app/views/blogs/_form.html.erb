@@ -1,0 +1,26 @@
+<%= form_with model: blog do |form| %>
+<% if form.object.errors.any? %>
+<div>
+    <% form.object.errors.full_messages.each do |message| %>
+    <div><%= message %></div>
+    <% end %>
+</div>
+<% end %>
+<div class="field">
+    <%= form.label :title%>
+    <%= form.text_field :title%>
+</div>
+<div class="field">
+    <%= form.label :content%>
+    <%= form.rich_text_area :content%>
+</div>
+
+<div class="field">
+    <%= form.label :is_public %>
+    <%= form.check_box :is_public, {}, "true", "false" %>
+</div>
+
+<div class="actions">
+    <%= form.button request.original_url.include?("edit") ? "Update" : "Create Blog", data: {turbo_confirm: "Are you Sure?"}, :class => "btn" %>
+</div>
+<% end %>

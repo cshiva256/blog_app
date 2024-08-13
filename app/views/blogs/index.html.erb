@@ -1,0 +1,22 @@
+<h1>Blog App</h1>
+
+<% if user_signed_in? %>
+    <h3> List of Accessible Blogs </h3>
+<% else %>
+    <h3> List of Public Blogs </h3>
+<% end %>
+
+<ul class="list">
+    <% @blogs.each do |blog| %>
+        <li class="list-item">
+            <%= link_to blog_path(blog.id) do%>
+            <span>
+                <%= blog.title  %>
+            </span>
+            <span>
+                <%= "- " + blog.user[:display_name] %>
+            </span>
+            <% end %>
+        </li>
+    <% end %>
+</ul>
