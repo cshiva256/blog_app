@@ -13,11 +13,6 @@
     <%= f.text_field :display_name, autofocus: true, autocomplete: "display-name" %>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>
       Currently waiting confirmation for: <%= resource.unconfirmed_email %>
@@ -39,7 +34,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :current_password %> <i>(Enter current password to confirm changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 

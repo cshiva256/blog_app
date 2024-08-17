@@ -3,8 +3,11 @@ Rails.application.routes.draw do
 
   #API "path", to: "folder#file", as: :url_alias (blogs_path(1) => "/blogs/1")
   devise_for :users
-  # resources :users, only: [:show]
+  get "/blogs/view" , to: "blogs#view", as: :blogs_view
   resources :blogs
 
   root "blogs#index"
+
+  # for api
+  mount Blogs::Api => "/"
 end

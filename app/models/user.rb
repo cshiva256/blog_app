@@ -7,4 +7,13 @@ class User < ApplicationRecord
 
   validates_uniqueness_of :user_name
   has_many :blogs
+
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
+
 end

@@ -1,36 +1,44 @@
 class BlogsController < ApplicationController
 
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
 
   def index
-    if user_signed_in?
-      @blogs = Blog.where(user_id: current_user[:id]).or(Blog.where(is_public: true))
-      if params[:search]  # checks for nil value
-        if params[:search].length>0
-          puts "-"*100
-          puts params
-          puts "-"*100
-          key = params[:search].strip
-          @blogs = @blogs.select do |blog|
-            blog.title.include?(key) or blog.content.to_plain_text.include?(key)
-          end
-        else
-          redirect_to root_path, alert: "Enter text for performing search!!"
+    @blogs = Blog.where(is_public: true).order(:created_at).reverse
+    if params[:search]  # checks for nil value
+      key = params[:search].strip
+      if key.length>0
+        @blogs.select! do |blog|
+          blog.title.include?(key) or blog.content.to_plain_text.include?(key)
         end
+      else
+        redirect_to root_path, alert: "Enter text for performing search!!"
       end
-    else
-      @blogs = Blog.where(is_public: true)
     end
-
-    @blogs = @blogs.sort_by(&:created_at).reverse
     # render json: @blogs
+  end
+
+  # to view private blogs
+  def view
+    @blogs = Blog.where(user_id: current_user[:id]).order(:created_at).reverse
+    if params[:search]  # checks for nil value
+      key = params[:search].strip
+      if key.length>0
+        @blogs.select! do |blog|
+          blog.title.include?(key) or blog.content.to_plain_text.include?(key)
+        end
+      else
+        redirect_to blogs_view_path, alert: "Enter text for performing search!!"
+      end
+    end
   end
 
   def show
     # @blog = Blog.find(params[:id])
-    if !@blog[:is_public] and current_user[:id]!=@blog[:user_id]
-      redirect_to blogs_path
+    if !@blog[:is_public]
+      if current_user.nil? or current_user[:id]!=@blog[:user_id]
+        redirect_to blogs_path, alert: "You don't have access to this blog!!"
+      end
     end
   end
 

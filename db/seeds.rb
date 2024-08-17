@@ -15,3 +15,11 @@ user.update!(
   display_name: "Shiva C",
   user_name: "shiva4706"
 )
+
+100.times do |i|
+  Blog.create(
+    title: "Blog #{i}",
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
+    is_public: true
+  )
+end

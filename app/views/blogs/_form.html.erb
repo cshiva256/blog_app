@@ -21,6 +21,6 @@
 </div>
 
 <div class="actions">
-    <%= form.button request.original_url.include?("edit") ? "Update" : "Create Blog", data: {turbo_confirm: "Are you Sure?"}, :class => "btn" %>
+    <%= form.button request.original_url.include?("edit") ? "Update" : "Create Blog", :class => "btn" %>
 </div>
 <% end %>
