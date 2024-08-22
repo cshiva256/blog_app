@@ -10,4 +10,5 @@ Rails.application.routes.draw do
 
   # for api
   mount Blogs::Api => "/"
+  mount Users::Api => "/"
 end

@@ -5,6 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :authentication_keys => [:user_name]
 
+  validates :user_name, presence: true
+  validates :display_name, presence: true
+  validates :password, presence: true, length: { minimum: 6 }
+
   validates_uniqueness_of :user_name
   has_many :blogs
 
