@@ -86,7 +86,8 @@ module Users
         if @current_user.valid_password?(params["password"])
           @current_user.update!(
             user_name: params["user_name"],
-            display_name: params["display_name"]
+            display_name: params["display_name"],
+            password: params["password"]
           )
           if params["new_password"].length > 0
             if params["new_password"] == params["new_password_confirmation"]
@@ -94,7 +95,7 @@ module Users
                   password: params["new_password"]
                 )
               else
-                error!('Password and Password Confirmation should match ', 400)
+                error!("Validation failed: Password confirmation doesn't match Password", 400)
             end
           else
             puts '_'*100
