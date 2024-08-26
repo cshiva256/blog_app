@@ -68,12 +68,13 @@ group :test do
   # for unit testing
   gem 'rspec-rails'
   gem 'rack-test'
-  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
 end
 
 gem "devise", "~> 4.9"
 gem "grape"
 gem "rack-cors"
 gem "jwt"
-
 gem "dotenv-rails", "~> 3.1"
+
+gem 'simplecov', require: false, group: :test

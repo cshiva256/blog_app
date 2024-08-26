@@ -20,6 +20,7 @@ RSpec.describe "Users", type: :request do
   end
 
   let(:user) { User.create!(valid_attributes) }
+
   let(:token) {
     JsonWebToken.encode(
       user_id: user.id,
@@ -83,7 +84,6 @@ RSpec.describe "Users", type: :request do
         get '/api/users', headers: { 'Authorization': token }
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)
-        puts json
         expect(json['user_name']).to eq(user.user_name)
       end
     end
